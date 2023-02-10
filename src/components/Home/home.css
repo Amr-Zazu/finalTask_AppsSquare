@@ -1,0 +1,70 @@
+/* .cont {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 30px;
+} */
+
+.home-container {
+  display: flex;
+  position: absolute;
+  margin-top: 62px;
+}
+
+/* .home-menu {
+  position: fixed;
+  z-index: 1;
+} */
+
+.landing {
+  min-height: 87.3vh;
+  padding: 0px 30px;
+  margin-left: 280px;
+  margin-top: 33px;
+  width: 1250px;
+  background: url("../../images/home-bg.jpg");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  text-align: center;
+  position: relative;
+}
+
+.home-info {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.title {
+  font-size: 60px;
+  font-weight: bold;
+  color: #5e5e5e;
+  margin-bottom: 20px;
+}
+
+.title span {
+  color: #ffa405;
+  font-weight: bold;
+  /* color: #eb5424; */
+}
+
+.home-btn {
+  background: #eb5424;
+  color: #fff;
+  font-size: 18px;
+  width: 150px;
+  text-decoration: none !important;
+  border: 0;
+  padding: 15px;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 10px;
+  display: block;
+  margin: auto;
+}
+
+.home-btn:hover {
+  color: white;
+  background-color: black;
+}

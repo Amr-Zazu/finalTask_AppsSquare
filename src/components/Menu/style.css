@@ -1,0 +1,30 @@
+.ant-btn {
+  border-radius: 0;
+  /* margin-bottom: 1px; */
+}
+ul {
+  height: 87.5vh;
+  border-radius: 0px 10px 10px 0px;
+  /* text-align: center; */
+}
+/* .project-menu {
+  height: 82vh;
+} */
+
+ul li {
+  padding: 30px 0;
+}
+
+.home-menu {
+  position: fixed;
+  z-index: 1;
+  margin-top: 62px;
+}
+
+/* .ant-menu-item-icon,
+.anticon,
+.anticon-user {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */

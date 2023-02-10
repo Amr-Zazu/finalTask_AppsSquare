@@ -1,0 +1,21 @@
+.navbar-container {
+  /* background-color: #060767; */
+  background-color: #001529;
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+}
+
+.collapse,
+.navbar-collapse {
+  /* position: fixed; */
+  position: relative;
+  z-index: 3;
+}
+
+.nav-image {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-left: 10px;
+}
