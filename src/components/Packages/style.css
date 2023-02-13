@@ -1,18 +1,23 @@
 .packages-container {
   position: absolute;
   display: flex;
+  width: 100%;
   margin-top: 62px;
 }
 
 .packages-project {
   padding: 0px 30px;
   width: 1200px;
-  /* min-height: 87.3vh; */
   margin-left: 280px;
-  /* margin-top: 33px; */
-  /* text-align: center; */
-  /* position: relative; */
 }
+
+/* @media (max-width: 991px) {
+  .packages-project {
+    padding: 0px 30px;
+    width: 100%;
+    margin: auto;
+  }
+} */
 
 .add-new-btn {
   background: #eb5424;
@@ -34,24 +39,16 @@
   background-color: black;
 }
 
-/* ul {
-  height: 50vh;
-} */
-
 .packages-heading {
   margin: 10px 0 10px;
-  /* background-color: white; */
   background-color: #001529;
   color: #eee;
   padding: 10px 25px;
   border-radius: 7px;
-  /* color: #eb5424; */
-  width: fit-content;
 }
 
 .pagi {
   background-color: #001529;
-  /* width: 600px; */
   width: fit-content;
   text-align: center;
   color: white;
@@ -88,4 +85,85 @@
 .action-btn {
   margin-left: 10px;
   border-radius: 7px;
+}
+
+.link-btn {
+  padding: 5px 15px;
+  margin-left: 10px;
+  border-radius: 7px;
+  cursor: pointer;
+  outline: none;
+  transition: color 0.3s;
+  box-sizing: border-box;
+  font-size: 14px;
+  font-weight: 400;
+  white-space: nowrap;
+  text-align: center;
+  user-select: none;
+  display: inline-block;
+  color: white;
+  text-decoration: none;
+}
+
+.link-btn.view {
+  background-color: #4096ff;
+}
+
+.link-btn.edit {
+  background-color: #0a9f0a;
+}
+
+.link-btn:hover {
+  background-color: black;
+  color: white;
+}
+
+.action-btn:hover {
+  background-color: black !important ;
+  color: white;
+}
+
+@media (max-width: 991px) {
+  .packages-project {
+    width: 100%;
+    margin: auto;
+  }
+  thead {
+    width: 100% !important;
+  }
+  tr {
+    font-size: 12px;
+    width: 100% !important;
+  }
+  th {
+    padding: 14px 5px !important;
+    width: fit-content !important;
+  }
+  td {
+    padding: 14px 5px !important;
+  }
+  .action-btn {
+    margin-left: 5px;
+    padding: 1px 3px;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+  .link-btn {
+    padding: 1px 3px;
+    margin-left: 5px;
+    margin-top: 5px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 567px) {
+  tr {
+    font-size: 8px;
+  }
+  .action-btn {
+    font-size: 10px;
+  }
+  .link-btn {
+    font-size: 8px;
+  }
 }

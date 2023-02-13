@@ -1,6 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-
-// export const getToken = createAsyncThunk("loginSlice/getToken", async () => {});
+import { createSlice } from "@reduxjs/toolkit";
 
 export const registerSlice = createSlice({
   initialState: {
@@ -8,8 +6,7 @@ export const registerSlice = createSlice({
     token: "",
     user_name: "",
     email: "",
-    phone: "...",
-    // profile_image: "",
+    phone: "",
   },
   name: "registerSlice",
   reducers: {
@@ -37,21 +34,10 @@ export const registerSlice = createSlice({
       state.phone = action.payload;
       return state;
     },
-    // setProfileImage: (state, action) => {
-    //   state.profile_image = action.payload;
-    //   return state;
-    // },
   },
 });
 
-export const {
-  login,
-  logout,
-  setToken,
-  setEmail,
-  setUserName,
-  setPhone,
-  // setProfileImage,
-} = registerSlice.actions;
+export const { login, logout, setToken, setEmail, setUserName, setPhone } =
+  registerSlice.actions;
 
 export default registerSlice.reducer;

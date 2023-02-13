@@ -1,5 +1,4 @@
 .navbar-container {
-  /* background-color: #060767; */
   background-color: #001529;
   position: fixed;
   width: 100%;
@@ -8,7 +7,6 @@
 
 .collapse,
 .navbar-collapse {
-  /* position: fixed; */
   position: relative;
   z-index: 3;
 }

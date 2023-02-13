@@ -1,46 +1,32 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import Spinner from "react-bootstrap/Spinner";
-
-import { useDispatch, useSelector } from "react-redux";
-
-import "./style.css";
-import image from "./../../images/2.jpg";
-// import { useAuth } from "../auth";
 import {
   login,
   setToken,
   setUserName,
   setEmail,
   setPhone,
-  setProfileImage,
 } from "../../rtk/slices/register-slice";
+
+import image from "./../../images/2.jpg";
+import "./style.css";
 
 const Login = () => {
   const [inputEmail, setinputEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const [loading, setLoading] = useState(false);
 
-  // const [store, setStore] = useState("");
-
-  // const isLogin = useSelector((state) => state.register.isLogin);
-
   const dispatch = useDispatch();
-
-  // const token = useSelector((state) => state.register.token);
-
   const navigate = useNavigate();
   const location = useLocation();
-  // const auth = useAuth();
 
   const redirectPath = location.state?.path || "/";
-
   const apiLink = "https://bahar.appssquare.com/api/admin/login";
 
   const handleLogin = (e) => {
-    // auth.login(email);
     setLoading(true);
     e.preventDefault();
     fetch(apiLink, {
@@ -85,12 +71,7 @@ const Login = () => {
           document.querySelector(".error-message").style.display = "block";
           setLoading(false);
         }
-
-        // console.log(data.data.name);
       });
-    // .catch((err) => {
-    //   console.log(err.message);
-    // });
   };
 
   return (

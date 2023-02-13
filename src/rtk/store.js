@@ -5,6 +5,5 @@ import loginSlice from "./slices/register-slice";
 export const store = configureStore({
   reducer: {
     register: loginSlice,
-    // isToken: tokenSlice,
   },
 });

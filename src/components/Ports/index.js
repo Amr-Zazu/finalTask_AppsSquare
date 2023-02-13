@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { Button, Table } from "antd";
-import RefAutoComplete from "antd/es/auto-complete";
+import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
+import { ToastContainer, toast } from "react-toastify";
 
 import "./style.css";
-import { useSelector } from "react-redux";
-import ProjectMenu from "../Menu";
 
 const Ports = () => {
   const [dataSource, setDataSource] = useState([]);
@@ -16,13 +17,14 @@ const Ports = () => {
 
   var token = useSelector((state) => state.register.token);
 
-  // "https://jsonplaceholder.typicode.com/todos"
+  const selectedIDs = [
+    1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
+    24,
+  ];
 
   useEffect(() => {
     if (localStorage.getItem("register")) {
       let registerStorage = JSON.parse(localStorage.getItem("register"));
-      console.log(registerStorage.login);
-      console.log(registerStorage.token);
       if (registerStorage.login && registerStorage.token !== "") {
         token = registerStorage.token;
       }
@@ -37,7 +39,10 @@ const Ports = () => {
       },
     })
       .then((response) => response.json())
-      .then((data) => setDataSource(data.data))
+      .then((data) => {
+        console.log(data);
+        setDataSource(data.data);
+      })
       .catch((err) => {
         console.log(err);
       })
@@ -45,6 +50,66 @@ const Ports = () => {
         setLoading(false);
       });
   }, []);
+
+  const portDelete = (id) => {
+    Swal.fire({
+      title: `Are You Sure To Delete this Port ?`,
+      showCancelButton: true,
+    }).then((data) => {
+      if (data.isConfirmed) {
+        fetch(`${apiUrl}/${id}`, {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json, */*",
+            "Content-Type": "application/json",
+          },
+        })
+          .then((response) => response.json())
+          .then((data) => console.log(data))
+          .then(setLoading(true))
+          .then(
+            toast.warning("Deleting Port", {
+              position: "top-right",
+              autoClose: 2000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+            })
+          )
+          .then(() => {
+            fetch(apiUrl, {
+              method: "GET",
+              headers: {
+                Authorization: `Bearer ${token}`,
+                Accept: "application/json, */*",
+                "Content-Type": "application/json",
+              },
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                console.log(data);
+                setDataSource(data.data);
+              })
+              .catch((err) => {
+                console.log(err);
+              })
+              .finally(() => {
+                setLoading(false);
+              });
+          });
+      }
+    });
+  };
+
+  let lastIndex = 0;
+  const updateIndex = () => {
+    ++lastIndex;
+    return lastIndex;
+  };
 
   const columns = [
     {
@@ -55,40 +120,62 @@ const Ports = () => {
     {
       key: "2",
       title: "English Name",
-      // dataIndex: "userId",
       dataIndex: "name_en",
-      // sorter: (record1, record2) => {
-      //   return record1.userId > record2.userId;
-      // },
     },
     {
       key: "3",
       title: "Arabic Name",
-      // dataIndex: "completed",
       dataIndex: "name_ar",
-      // render: (completed) => {
-      //   return <p>{completed ? "Complete" : "In Progress"}</p>;
-      // },
-      // filters: [
-      //   { text: "Complete", value: true },
-      //   { text: "In Progress", value: false },
-      // ],
-      // onFilter: (value, record) => {
-      //   return record.completed === value;
-      // },
     },
     {
       key: "4",
+      title: "City ID",
+      dataIndex: "city_id",
+    },
+    {
+      key: "5",
+      title: "Latitude",
+      dataIndex: "latitude",
+    },
+    {
+      key: "6",
+      title: "Longitude",
+      dataIndex: "longitude",
+    },
+
+    {
+      key: "7",
       title: "Actions",
-      render: () => {
+      dataIndex: "id",
+      render: (id, data) => {
+        // console.log(lastIndex);
         return (
           <>
-            <Button className="action-btn" type="primary">
+            <Link
+              className="link-btn edit"
+              to={`/update-port/${id}/${JSON.stringify(data)}`}
+            >
               Edit
-            </Button>
-            <Button className="action-btn" danger type="primary">
-              Delete
-            </Button>
+            </Link>
+
+            <Link className="link-btn view" to={`/port-details/${id}`}>
+              View Details
+            </Link>
+
+            {selectedIDs.includes(id) ? (
+              ""
+            ) : (
+              <Button
+                className="action-btn"
+                danger
+                type="primary"
+                onClick={function () {
+                  portDelete(id);
+                }}
+              >
+                Delete
+              </Button>
+            )}
           </>
         );
       },
@@ -98,7 +185,11 @@ const Ports = () => {
   return (
     <div className="ports-container">
       <div className="ports-project">
+        <Link to="/new-port" className="add-new-btn">
+          Add New Port
+        </Link>
         <h1 className="ports-heading">Ports</h1>
+        {console.log(updateIndex())}
         <Table
           loading={loading}
           columns={columns}
@@ -110,7 +201,6 @@ const Ports = () => {
             className: "pagi",
             current: page,
             pageSize: pageSize,
-            // total: 200,
             onChange: (page, pageSize) => {
               setPage(page);
               setPageSize(pageSize);
@@ -118,6 +208,18 @@ const Ports = () => {
           }}
         ></Table>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     </div>
   );
 };

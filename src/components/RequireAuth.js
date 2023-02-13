@@ -1,10 +1,9 @@
-import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
-import { useAuth } from "./auth";
 
 export const RequireAuth = ({ children }) => {
   let isLogin = useSelector((state) => state.register.isLogin);
+  let token = useSelector((state) => state.register.token);
   const location = useLocation();
 
   if (localStorage.getItem("register")) {
@@ -14,11 +13,6 @@ export const RequireAuth = ({ children }) => {
     }
   }
 
-  // useEffect(() => {
-
-  // }, []);
-
-  // const auth = useAuth();
   if (!isLogin) {
     return <Navigate to="/login" state={{ path: location.pathname }} />;
   }

@@ -1,43 +1,35 @@
 import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-
-import { AuthProvider } from "./components/auth";
-
 import { Profile } from "./components/Profile/Profile";
 import { RequireAuth } from "./components/RequireAuth";
-
 import Login from "./components/Login";
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   login,
   setEmail,
   setPhone,
-  setProfileImage,
   setToken,
   setUserName,
 } from "./rtk/slices/register-slice";
-import UpdateProfile from "./components/UpdateProfile";
-import ProjectTable from "./components/Packages";
 import Packages from "./components/Packages";
 import ProjectMenu from "./components/Menu";
-
-import "./App.css";
 import Ports from "./components/Ports";
 import CreatePackage from "./components/CreatePackage";
-import Toastify from "./components/Toastify";
 import UpdatePackage from "./components/UpdatePackage";
+import CreatePort from "./components/CreatePort";
+import UpdatePort from "./components/UpdatePort";
+import PortDetails from "./components/PortDetails";
+
+import "./App.css";
 
 function App() {
   const dispatch = useDispatch();
-  // let isLogin = useSelector((state) => state.register.isLogin);
 
   useEffect(() => {
     if (localStorage.getItem("register")) {
       let registerStorage = JSON.parse(localStorage.getItem("register"));
-      // console.log(registerStorage.login);
-      // console.log(`Token: ${registerStorage.token}`);
       if (registerStorage.login && registerStorage.token !== "") {
         dispatch(login());
         dispatch(setToken(registerStorage.token));
@@ -48,17 +40,14 @@ function App() {
     }
   }, []);
   return (
-    // <AuthProvider>
     <>
-      {/* <div className="project-container"> */}
       <Navbar />
       <ProjectMenu />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/toastify" element={<Toastify />} />
-        {/* <Route path="/new-package" element={<CreatePackage />} /> */}
-
+        {/* <Route path="/new-port" element={<CreatePort />} />
+        <Route path="/port-details/:portIdDetails" element={<PortDetails />} /> */}
         <Route
           path="/profile"
           element={
@@ -99,11 +88,32 @@ function App() {
             </RequireAuth>
           }
         />
+        <Route
+          path="/update-port/:portID/:portInfo"
+          element={
+            <RequireAuth>
+              <UpdatePort />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/new-port"
+          element={
+            <RequireAuth>
+              <CreatePort />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/port-details/:portIdDetails"
+          element={
+            <RequireAuth>
+              <PortDetails />
+            </RequireAuth>
+          }
+        />
       </Routes>
-      {/* </div> */}
     </>
-
-    // </AuthProvider>
   );
 }
 

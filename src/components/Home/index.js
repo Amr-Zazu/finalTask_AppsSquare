@@ -1,8 +1,5 @@
-import { Button } from "antd";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import ProjectMenu from "../Menu";
-import ProjectTable from "../Packages";
 import "./home.css";
 
 function Home() {
@@ -10,9 +7,6 @@ function Home() {
   return (
     <>
       <div className="home-container">
-        {/* <div className="home-menu">
-          <ProjectMenu />
-        </div> */}
         <div className="landing">
           <div className="home-info">
             <h1 className="title">

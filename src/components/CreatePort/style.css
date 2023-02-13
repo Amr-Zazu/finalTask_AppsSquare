@@ -1,4 +1,4 @@
-.newPackage-container {
+.newPort-container {
   width: 700px;
   margin: 120px 0 0 500px;
   text-align: center;
@@ -11,7 +11,7 @@
   color: #eee;
 }
 
-.newPackage-heading {
+.newPort-heading {
   margin-bottom: 50px;
   color: #eee;
 }
@@ -35,11 +35,11 @@
   outline: none;
 }
 
-.addPackage-spinner {
+.add-port-spinner {
   color: #eee;
 }
 
-.newPackage-submit {
+.newPort-submit {
   background: #eb5424;
   color: #eee;
   padding: 10px 15px;
@@ -51,12 +51,12 @@
   margin-top: 20px;
 }
 
-.newPackage-submit:hover {
+.newPort-submit:hover {
   background-color: black;
 }
 
 @media (max-width: 991px) {
-  .newPackage-container {
+  .newPort-container {
     width: 90%;
     margin: 120px auto;
   }

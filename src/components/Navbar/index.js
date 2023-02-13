@@ -2,36 +2,31 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
-
 import { useNavigate } from "react-router-dom";
 import {
   logout,
   setEmail,
   setPhone,
-  // setProfileImage,
   setToken,
   setUserName,
 } from "../../rtk/slices/register-slice";
-// import { useAuth } from "../auth";
-// import { useAuth } from "./auth";
+
 import "./style.css";
 
 const Navbar = () => {
-  // const auth = useAuth();
   const navigate = useNavigate();
-
   const dispatch = useDispatch();
-
   const isLogin = useSelector((state) => state.register.isLogin);
-
   const [loading, setLoading] = useState(false);
-
   const apiLink = "https://bahar.appssquare.com/api/admin/logout";
   const token = useSelector((state) => state.register.token);
 
   const handleLogout = (e) => {
-    setLoading(true);
     e.preventDefault();
+    setLoading(true);
+    if (!loading) {
+      navigate("/");
+    }
     fetch(apiLink, {
       method: "POST",
       headers: {
@@ -40,20 +35,19 @@ const Navbar = () => {
         "Content-Type": "application/json",
       },
     })
-      .then((res) => res.json())
+      .then((res) => {
+        res.json();
+      })
       .then((data) => {
         console.log(data);
         localStorage.removeItem("register");
         localStorage.removeItem("recent-image");
         dispatch(logout());
-        setLoading(false);
         dispatch(setToken(""));
         dispatch(setEmail(""));
         dispatch(setUserName(""));
         dispatch(setPhone(""));
-        if (!loading) {
-          navigate("/");
-        }
+        setLoading(false);
       });
   };
 
@@ -107,11 +101,11 @@ const Navbar = () => {
                 )}
               </Link>
               <Link to="packages" className="nav-link text-light fs-6 fw-bold">
-                Table
+                Packages
               </Link>
-              {/* <Link to="/profile" className="nav-link ms-0">
-         
-              </Link> */}
+              <Link to="ports" className="nav-link text-light fs-6 fw-bold">
+                Ports
+              </Link>
 
               {!isLogin ? (
                 <Link to="/login" className="nav-link text-light fs-6 fw-bold">

@@ -5,15 +5,18 @@ import { useNavigate } from "react-router-dom";
 
 import "./style.css";
 
-const CreatePackage = () => {
+const CreatePort = () => {
   const [arabicName, setArabicName] = useState("");
   const [englishName, setEnglishName] = useState("");
+  const [cityID, setCityID] = useState("");
+  const [latitude, setLatitude] = useState("");
+  const [longitude, setLongitude] = useState("");
 
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
-  const apiLink = "https://bahar.appssquare.com/api/admin/packages";
+  const apiLink = "https://bahar.appssquare.com/api/admin/ports";
 
   var token = useSelector((state) => state.register.token);
 
@@ -30,6 +33,9 @@ const CreatePackage = () => {
       body: JSON.stringify({
         name_ar: arabicName,
         name_en: englishName,
+        city_id: cityID,
+        latitude: latitude,
+        longitude: longitude,
       }),
     })
       .then((res) => res.json())
@@ -38,7 +44,7 @@ const CreatePackage = () => {
         if (data.status === true) {
           setLoading(false);
           if (!loading) {
-            navigate("/packages");
+            navigate("/ports");
           }
         } else {
           console.log(data.message);
@@ -52,8 +58,8 @@ const CreatePackage = () => {
   }
 
   return (
-    <div className="newPackage-container">
-      <h1 className="newPackage-heading">Create New Package</h1>
+    <div className="newPort-container">
+      <h1 className="newPort-heading">Create New Port</h1>
       <div className="addNew">
         <label className="new-label" htmlFor="name">
           Arabic Name
@@ -80,25 +86,58 @@ const CreatePackage = () => {
           }}
         />
       </div>
+      <div className="addNew">
+        <label className="new-label" htmlFor="name">
+          City ID
+        </label>
+        <input
+          className="new-input"
+          type="text"
+          id="name"
+          onChange={(e) => {
+            setCityID(e.target.value);
+          }}
+        />
+      </div>
+      <div className="addNew">
+        <label className="new-label" htmlFor="name">
+          Latitude
+        </label>
+        <input
+          className="new-input"
+          type="text"
+          id="name"
+          onChange={(e) => {
+            setLatitude(e.target.value);
+          }}
+        />
+      </div>
+      <div className="addNew">
+        <label className="new-label" htmlFor="name">
+          Longitude
+        </label>
+        <input
+          className="new-input"
+          type="text"
+          id="name"
+          onChange={(e) => {
+            setLongitude(e.target.value);
+          }}
+        />
+      </div>
 
       <span className="error-message"></span>
 
       <button
-        style={
-          !loading
-            ? {
-                // backgroundColor: "green",
-              }
-            : { backgroundColor: "green" }
-        }
+        style={!loading ? {} : { backgroundColor: "green" }}
         disabled={loading}
         onClick={onClickUpdate}
-        className="newPackage-submit"
+        className="newPort-submit"
       >
         {loading ? (
           <div>
             <Spinner
-              className="addPackage-spinner"
+              className="add-port-spinner"
               as="span"
               animation="border"
               size="sm"
@@ -107,11 +146,11 @@ const CreatePackage = () => {
             />
           </div>
         ) : (
-          "Add New Package"
+          "Add New Port"
         )}
       </button>
     </div>
   );
 };
 
-export default CreatePackage;
+export default CreatePort;

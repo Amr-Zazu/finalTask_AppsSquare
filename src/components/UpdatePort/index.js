@@ -5,25 +5,32 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import "./style.css";
 
-const UpdatePackage = () => {
-  const { packageID, packageInfo } = useParams();
+const UpdatePort = () => {
+  const { portID, portInfo } = useParams();
   const [arabicName, setArabicName] = useState("");
   const [englishName, setEnglishName] = useState("");
+  const [cityID, setCityID] = useState("");
+  const [latitude, setLatitude] = useState("");
+  const [longitude, setLongitude] = useState("");
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
-  const apiLink = "https://bahar.appssquare.com/api/admin/packages";
+  const apiLink = "https://bahar.appssquare.com/api/admin/ports";
   var token = useSelector((state) => state.register.token);
 
   useEffect(() => {
-    setArabicName(JSON.parse(packageInfo).name_ar);
-    setEnglishName(JSON.parse(packageInfo).name_en);
+    setArabicName(JSON.parse(portInfo).name_ar);
+    setEnglishName(JSON.parse(portInfo).name_en);
+    setCityID(JSON.parse(portInfo).city_id);
+    setLatitude(JSON.parse(portInfo).latitude);
+    setLongitude(JSON.parse(portInfo).longitude);
   }, []);
 
-  const packageUpdate = (e) => {
+  const portUpdate = (e) => {
     e.preventDefault();
     setLoading(true);
-    fetch(`${apiLink}/${packageID}`, {
+
+    fetch(`${apiLink}/${portID}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -33,6 +40,9 @@ const UpdatePackage = () => {
       body: JSON.stringify({
         name_ar: arabicName,
         name_en: englishName,
+        city_id: cityID,
+        latitude: latitude,
+        longitude: longitude,
       }),
     })
       .then((res) => res.json())
@@ -41,7 +51,7 @@ const UpdatePackage = () => {
         if (data.status === true) {
           setLoading(false);
           if (!loading) {
-            navigate("/packages");
+            navigate("/ports");
           }
         } else {
           console.log(data.message);
@@ -55,33 +65,75 @@ const UpdatePackage = () => {
   };
 
   return (
-    <div className="updatePackage-container">
-      <h1 className="updatePackage-heading">Update Package</h1>
-      <div className="updatePackage">
-        <label className="update-label" htmlFor="name">
+    <div className="updatePort-container">
+      <h1 className="updatePort-heading">Update Port</h1>
+      <div className="updatePort">
+        <label className="update-label" htmlFor="name_ar">
           Arabic Name
         </label>
         <input
           className="update-input"
           type="text"
-          id="name"
+          id="name_ar"
           value={arabicName}
           onChange={(e) => {
             setArabicName(e.target.value);
           }}
         />
       </div>
-      <div className="updatePackage">
-        <label className="update-label" htmlFor="name">
+      <div className="updatePort">
+        <label className="update-label" htmlFor="name_en">
           English Name
         </label>
         <input
           className="update-input"
           type="text"
-          id="name"
+          id="name_en"
           value={englishName}
           onChange={(e) => {
             setEnglishName(e.target.value);
+          }}
+        />
+      </div>
+      <div className="updatePort">
+        <label className="update-label" htmlFor="city_id">
+          City ID
+        </label>
+        <input
+          className="update-input"
+          type="text"
+          id="city_id"
+          value={cityID}
+          onChange={(e) => {
+            setCityID(e.target.value);
+          }}
+        />
+      </div>
+      <div className="updatePort">
+        <label className="update-label" htmlFor="latitude">
+          Latitude
+        </label>
+        <input
+          className="update-input"
+          type="text"
+          id="latitude"
+          value={latitude}
+          onChange={(e) => {
+            setLatitude(e.target.value);
+          }}
+        />
+      </div>
+      <div className="updatePort">
+        <label className="update-label" htmlFor="longitude">
+          Longitude
+        </label>
+        <input
+          className="update-input"
+          type="text"
+          id="longitude"
+          value={longitude}
+          onChange={(e) => {
+            setLongitude(e.target.value);
           }}
         />
       </div>
@@ -91,13 +143,13 @@ const UpdatePackage = () => {
       <button
         style={!loading ? {} : { backgroundColor: "green" }}
         disabled={loading}
-        onClick={packageUpdate}
+        onClick={portUpdate}
         className="update-submit"
       >
         {loading ? (
           <div>
             <Spinner
-              className="package-spinner"
+              className="update-port-spinner"
               as="span"
               animation="border"
               size="sm"
@@ -106,11 +158,11 @@ const UpdatePackage = () => {
             />
           </div>
         ) : (
-          "Update Package"
+          "Update Port"
         )}
       </button>
     </div>
   );
 };
 
-export default UpdatePackage;
+export default UpdatePort;

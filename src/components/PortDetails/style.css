@@ -1,5 +1,6 @@
-.newPackage-container {
+.detailsPort-container {
   width: 700px;
+  min-height: 70vh;
   margin: 120px 0 0 500px;
   text-align: center;
   position: absolute;
@@ -11,35 +12,43 @@
   color: #eee;
 }
 
-.newPackage-heading {
+.detailsPort-heading {
   margin-bottom: 50px;
   color: #eee;
 }
 
-.addNew {
+.detailsPort {
   display: block;
   text-align: center;
   margin: 20px auto;
 }
 
-.new-label {
+.details-label {
   width: 200px;
   font-weight: bold;
   font-size: 25px;
 }
 
-.new-input {
+.details-input {
   padding: 10px 15px;
   width: 300px;
   border: none;
   outline: none;
+  background-color: white;
+  color: black;
 }
 
-.addPackage-spinner {
-  color: #eee;
+.port-spinner {
+  width: 200px;
+  margin: 200px auto;
+  color: #eb5424;
+  background-color: #eee;
+  padding: 10px;
+  text-align: center;
+  display: block;
 }
 
-.newPackage-submit {
+.details-submit {
   background: #eb5424;
   color: #eee;
   padding: 10px 15px;
@@ -51,20 +60,36 @@
   margin-top: 20px;
 }
 
-.newPackage-submit:hover {
+.back-btn {
+  background: #eb5424;
+  color: #fff;
+  font-size: 18px;
+  width: 150px;
+  text-decoration: none !important;
+  border: 0;
+  padding: 15px;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 10px;
+  display: block;
+  margin: auto;
+}
+
+.back-btn:hover {
+  color: white;
   background-color: black;
 }
 
 @media (max-width: 991px) {
-  .newPackage-container {
+  .detailsPort-container {
     width: 90%;
     margin: 120px auto;
   }
-  .new-label {
+  .details-label {
     width: 120px;
     font-size: 15px;
   }
-  .new-input {
+  .details-input {
     width: 150px;
     padding: 5px 10px;
   }
