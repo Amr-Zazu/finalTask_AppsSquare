@@ -46,8 +46,6 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        {/* <Route path="/new-port" element={<CreatePort />} />
-        <Route path="/port-details/:portIdDetails" element={<PortDetails />} /> */}
         <Route
           path="/profile"
           element={
